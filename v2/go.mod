@@ -8,5 +8,6 @@ require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/json-iterator/go v1.1.12
 	github.com/kr/pretty v0.3.1 // indirect
+	github.com/mailru/easyjson v0.7.7
 	github.com/stretchr/testify v1.4.0
 )

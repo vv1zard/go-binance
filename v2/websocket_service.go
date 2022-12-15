@@ -6,6 +6,8 @@ import (
 	"time"
 
 	stdjson "encoding/json"
+
+	easyjson "github.com/mailru/easyjson"
 )
 
 // Endpoints
@@ -456,6 +458,7 @@ func WsCombinedTradeServe(symbols []string, handler WsCombinedTradeHandler, errH
 }
 
 // WsTradeEvent define websocket trade event
+
 type WsTradeEvent struct {
 	Event         string `json:"e"`
 	Time          int64  `json:"E"`
@@ -476,6 +479,8 @@ type WsCombinedTradeEvent struct {
 }
 
 // WsUserDataEvent define user data event
+
+//model:json
 type WsUserDataEvent struct {
 	Event             UserDataEventType `json:"e"`
 	Time              int64             `json:"E"`
@@ -563,7 +568,9 @@ func WsUserDataServe(listenKey string, handler WsUserDataHandler, errHandler Err
 
 		event := new(WsUserDataEvent)
 
-		err = json.Unmarshal(message, event)
+		// err = json.Unmarshal(message, event)
+
+		err = easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
