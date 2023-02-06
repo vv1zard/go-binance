@@ -55,7 +55,7 @@ type PremiumIndex struct {
 // FundingRateService get funding rate
 type FundingRateService struct {
 	c         *Client
-	symbol    string
+	symbol    *string
 	startTime *int64
 	endTime   *int64
 	limit     *int
@@ -63,7 +63,7 @@ type FundingRateService struct {
 
 // Symbol set symbol
 func (s *FundingRateService) Symbol(symbol string) *FundingRateService {
-	s.symbol = symbol
+	s.symbol = &symbol
 	return s
 }
 
@@ -92,7 +92,9 @@ func (s *FundingRateService) Do(ctx context.Context, opts ...RequestOption) (res
 		endpoint: "/fapi/v1/fundingRate",
 		secType:  secTypeNone,
 	}
-	r.setParam("symbol", s.symbol)
+	if s.symbol != nil {
+		r.setParam("symbol", *s.symbol)
+	}
 	if s.startTime != nil {
 		r.setParam("startTime", *s.startTime)
 	}
