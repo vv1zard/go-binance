@@ -232,8 +232,41 @@ type ModifyOrderService struct {
 	price    string
 	quantity string
 
-	ClientOrderID *string
-	OrderID       *int64
+	clientOrderID *string
+	orderID       *int64
+}
+
+// Symbol set symbol
+func (s *ModifyOrderService) Symbol(symbol string) *ModifyOrderService {
+	s.symbol = symbol
+	return s
+}
+
+// Side set side
+func (s *ModifyOrderService) Side(side SideType) *ModifyOrderService {
+	s.side = side
+	return s
+}
+
+// Quantity set quantity
+func (s *ModifyOrderService) Quantity(quantity string) *ModifyOrderService {
+	s.quantity = quantity
+	return s
+}
+
+// Price set price
+func (s *ModifyOrderService) Price(price string) *ModifyOrderService {
+	s.price = price
+	return s
+}
+func (s *ModifyOrderService) ClientOrderID(clientOrderID string) *ModifyOrderService {
+	s.clientOrderID = &clientOrderID
+	return s
+}
+
+func (s *ModifyOrderService) OrderID(orderID int64) *ModifyOrderService {
+	s.orderID = &orderID
+	return s
 }
 
 func (s *ModifyOrderService) modifyOrder(ctx context.Context, endpoint string, opts ...RequestOption) (data []byte, header *http.Header, err error) {
@@ -250,10 +283,10 @@ func (s *ModifyOrderService) modifyOrder(ctx context.Context, endpoint string, o
 		"quantity": s.quantity,
 	}
 	if s.ClientOrderID != nil {
-		m["clientOrderId"] = *s.ClientOrderID
+		m["clientOrderId"] = *s.clientOrderID
 	}
 	if s.OrderID != nil {
-		m["orderId"] = *s.OrderID
+		m["orderId"] = *s.orderID
 	}
 	r.setFormParams(m)
 	data, header, err = s.c.callAPI(ctx, r, opts...)
