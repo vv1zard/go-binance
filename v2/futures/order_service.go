@@ -283,7 +283,7 @@ func (s *ModifyOrderService) modifyOrder(ctx context.Context, endpoint string, o
 		"quantity": s.quantity,
 	}
 	if s.clientOrderID != nil {
-		m["clientOrderId"] = *s.clientOrderID
+		m["origClientOrderId"] = *s.clientOrderID
 	}
 	if s.orderID != nil {
 		m["orderId"] = *s.orderID
