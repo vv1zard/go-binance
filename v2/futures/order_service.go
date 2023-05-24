@@ -282,10 +282,10 @@ func (s *ModifyOrderService) modifyOrder(ctx context.Context, endpoint string, o
 		"price":    s.price,
 		"quantity": s.quantity,
 	}
-	if s.ClientOrderID != nil {
+	if s.clientOrderID != nil {
 		m["clientOrderId"] = *s.clientOrderID
 	}
-	if s.OrderID != nil {
+	if s.orderID != nil {
 		m["orderId"] = *s.orderID
 	}
 	r.setFormParams(m)
