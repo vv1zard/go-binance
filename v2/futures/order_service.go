@@ -239,7 +239,7 @@ type ModifyOrderService struct {
 func (s *ModifyOrderService) modifyOrder(ctx context.Context, endpoint string, opts ...RequestOption) (data []byte, header *http.Header, err error) {
 
 	r := &request{
-		method:   http.MethodPost,
+		method:   http.MethodPut,
 		endpoint: endpoint,
 		secType:  secTypeSigned,
 	}
