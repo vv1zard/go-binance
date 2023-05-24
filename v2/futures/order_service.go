@@ -225,6 +225,83 @@ type CreateOrderResponse struct {
 	RateLimitOrder1m  string           `json:"rateLimitOrder1m,omitempty"`
 }
 
+type ModifyOrderService struct {
+	c        *Client
+	symbol   string
+	side     SideType
+	price    string
+	quantity string
+
+	ClientOrderID *string
+	OrderID       *int64
+}
+
+func (s *ModifyOrderService) modifyOrder(ctx context.Context, endpoint string, opts ...RequestOption) (data []byte, header *http.Header, err error) {
+
+	r := &request{
+		method:   http.MethodPost,
+		endpoint: endpoint,
+		secType:  secTypeSigned,
+	}
+	m := params{
+		"symbol":   s.symbol,
+		"side":     s.side,
+		"price":    s.price,
+		"quantity": s.quantity,
+	}
+	if s.ClientOrderID != nil {
+		m["clientOrderId"] = *s.ClientOrderID
+	}
+	if s.OrderID != nil {
+		m["orderId"] = *s.OrderID
+	}
+	r.setFormParams(m)
+	data, header, err = s.c.callAPI(ctx, r, opts...)
+	if err != nil {
+		return []byte{}, &http.Header{}, err
+	}
+	return data, header, nil
+}
+
+func (s *ModifyOrderService) Do(ctx context.Context, opts ...RequestOption) (res *ModifyOrderResponse, err error) {
+	data, header, err := s.modifyOrder(ctx, "/fapi/v1/order", opts...)
+	if err != nil {
+		return nil, err
+	}
+	res = new(ModifyOrderResponse)
+	err = json.Unmarshal(data, res)
+	res.RateLimitOrder10s = header.Get("X-Mbx-Order-Count-10s")
+	res.RateLimitOrder1m = header.Get("X-Mbx-Order-Count-1m")
+
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+type ModifyOrderResponse struct {
+	Symbol            string           `json:"symbol"`
+	OrderID           int64            `json:"orderId"`
+	ClientOrderID     string           `json:"clientOrderId"`
+	Price             string           `json:"price"`
+	OrigQuantity      string           `json:"origQty"`
+	ExecutedQuantity  string           `json:"executedQty"`
+	ReduceOnly        bool             `json:"reduceOnly"`
+	Status            OrderStatusType  `json:"status"`
+	TimeInForce       TimeInForceType  `json:"timeInForce"`
+	Type              OrderType        `json:"type"`
+	Side              SideType         `json:"side"`
+	UpdateTime        int64            `json:"updateTime"`
+	WorkingType       WorkingType      `json:"workingType"`
+	ActivatePrice     string           `json:"activatePrice"`
+	AvgPrice          string           `json:"avgPrice"`
+	PositionSide      PositionSideType `json:"positionSide"`
+	ClosePosition     bool             `json:"closePosition"`
+	PriceProtect      bool             `json:"priceProtect"`
+	RateLimitOrder10s string           `json:"rateLimitOrder10s,omitempty"`
+	RateLimitOrder1m  string           `json:"rateLimitOrder1m,omitempty"`
+}
+
 // ListOpenOrdersService list opened orders
 type ListOpenOrdersService struct {
 	c      *Client
