@@ -14,6 +14,30 @@ type orderServiceTestSuite struct {
 	baseOrderTestSuite
 }
 
+// c := futures.NewClient(".", ".")
+// // c.Debug = true
+// {
+// 	ret, err := c.NewCreateOrderService().Symbol("BTCUSDT").
+// 		Side(futures.SideTypeBuy).Type(futures.OrderTypeLimit).
+// 		TimeInForce(futures.TimeInForceTypeGTC).Quantity("0.005").
+// 		Price("26000.0").NewClientOrderID("C001").Do(context.Background())
+
+// 	fmt.Println("Futures CreatOrder Response:", ret)
+
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// }
+// {
+// 	ret, err := c.NewModifyOrderService().Symbol("BTCUSDT").Side(futures.SideTypeBuy).Price("26000.0").ClientOrderID("C001").Quantity("0.01").Do(context.Background())
+
+// 	fmt.Println("Futures CreatOrder Response:", ret)
+
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// }
+
 func TestOrderService(t *testing.T) {
 	suite.Run(t, new(orderServiceTestSuite))
 }
