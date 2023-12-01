@@ -10,10 +10,12 @@ import (
 
 // Endpoints
 const (
-	baseWsMainUrl          = "wss://fstream.binance.com/ws"
-	baseWsTestnetUrl       = "wss://fstream-i.binance.com/ws"
-	baseCombinedMainURL    = "wss://fstream.binance.com/stream?streams="
-	baseCombinedTestnetURL = "wss://fstream-i.binance.com/stream?streams="
+	baseWsMainUrl = "wss://fstream.binance.com/ws"
+	// baseWsTestnetUrl       = "wss://fstream-i.binance.com/ws"
+	baseWsTestnetUrl    = "wss://fstream-mm.binance.com/ws"
+	baseCombinedMainURL = "wss://fstream.binance.com/stream?streams="
+	// baseCombinedTestnetURL = "wss://fstream-i.binance.com/stream?streams="
+	baseCombinedTestnetURL = "wss://fstream-mm.binance.com/stream?streams="
 )
 
 var (
