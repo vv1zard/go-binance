@@ -73,7 +73,7 @@ type ForceOrderCloseType string
 // Endpoints
 const (
 	baseApiMainUrl    = "https://fapi.binance.com"
-	baseApiTestnetUrl = "​https://fapi-mm.binance.com"
+	baseApiTestnetUrl = "https://fapi-mm.binance.com"
 )
 
 // Global enums
