@@ -28,6 +28,7 @@ type CreateOrderService struct {
 	priceProtect     *bool
 	newOrderRespType NewOrderRespType
 	closePosition    *bool
+	noLiquidation    *bool
 }
 
 // Symbol set symbol
@@ -126,6 +127,11 @@ func (s *CreateOrderService) ClosePosition(closePosition bool) *CreateOrderServi
 	return s
 }
 
+func (s *CreateOrderService) NoLiquidation(noLiquidation bool) *CreateOrderService {
+	s.noLiquidation = &noLiquidation
+	return s
+}
+
 func (s *CreateOrderService) createOrder(ctx context.Context, endpoint string, opts ...RequestOption) (data []byte, header *http.Header, err error) {
 
 	r := &request{
@@ -172,6 +178,9 @@ func (s *CreateOrderService) createOrder(ctx context.Context, endpoint string, o
 	}
 	if s.closePosition != nil {
 		m["closePosition"] = *s.closePosition
+	}
+	if s.noLiquidation != nil {
+		m["nl"] = *s.noLiquidation
 	}
 	r.setFormParams(m)
 	data, header, err = s.c.callAPI(ctx, r, opts...)
