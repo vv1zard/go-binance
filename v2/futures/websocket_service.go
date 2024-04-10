@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	easyjson "github.com/mailru/easyjson"
 )
 
 // Endpoints
@@ -64,7 +66,9 @@ func WsAggTradeServe(symbol string, handler WsAggTradeHandler, errHandler ErrHan
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsAggTradeEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -97,7 +101,8 @@ func WsCombinedAggTradeServe(symbols []string, handler WsAggTradeHandler, errHan
 		jsonData, _ := json.Marshal(data)
 
 		event := new(WsAggTradeEvent)
-		err = json.Unmarshal(jsonData, event)
+		// err = json.Unmarshal(jsonData, event)
+		err = easyjson.Unmarshal(jsonData, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -129,7 +134,8 @@ func WsTradeServe(symbol string, handler WsTradeHandler, errHandler ErrHandler) 
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsTradeEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -161,7 +167,8 @@ func WsCombinedTradeServe(symbols []string, handler WsTradeHandler, errHandler E
 		jsonData, _ := json.Marshal(data)
 
 		event := new(WsTradeEvent)
-		err = json.Unmarshal(jsonData, event)
+		// err = json.Unmarshal(jsonData, event)
+		err = easyjson.Unmarshal(jsonData, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -192,7 +199,8 @@ func wsMarkPriceServe(endpoint string, handler WsMarkPriceHandler, errHandler Er
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsMarkPriceEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -232,6 +240,7 @@ type WsAllMarkPriceHandler func(event WsAllMarkPriceEvent)
 func wsAllMarkPriceServe(endpoint string, handler WsAllMarkPriceHandler, errHandler ErrHandler) (doneC, stopC chan struct{}, err error) {
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
+		//TODO: easyjson
 		var event WsAllMarkPriceEvent
 		err := json.Unmarshal(message, &event)
 		if err != nil {
@@ -301,7 +310,8 @@ func WsKlineServe(symbol string, interval string, handler WsKlineHandler, errHan
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsKlineEvent)
-		err := json.Unmarshal(message, event)
+		// err := json.Unmarshal(message, event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -334,7 +344,8 @@ func WsCombinedKlineServe(symbolIntervalPair map[string]string, handler WsKlineH
 		jsonData, _ := json.Marshal(data)
 
 		event := new(WsKlineEvent)
-		err = json.Unmarshal(jsonData, event)
+		// err = json.Unmarshal(jsonData, event)
+		err = easyjson.Unmarshal(jsonData, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -368,7 +379,8 @@ func WsMiniMarketTickerServe(symbol string, handler WsMiniMarketTickerHandler, e
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsMiniMarketTickerEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -390,6 +402,7 @@ func WsAllMiniMarketTickerServe(handler WsAllMiniMarketTickerHandler, errHandler
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		var event WsAllMiniMarketTickerEvent
+		//TODO: easyjson
 		err := json.Unmarshal(message, &event)
 		if err != nil {
 			errHandler(err)
@@ -431,6 +444,7 @@ func WsMarketTickerServe(symbol string, handler WsMarketTickerHandler, errHandle
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsMarketTickerEvent)
+		//TODO: easyjson
 		err := json.Unmarshal(message, &event)
 		if err != nil {
 			errHandler(err)
@@ -453,6 +467,7 @@ func WsAllMarketTickerServe(handler WsAllMarketTickerHandler, errHandler ErrHand
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		var event WsAllMarketTickerEvent
+		//TODO: easyjson
 		err := json.Unmarshal(message, &event)
 		if err != nil {
 			errHandler(err)
@@ -485,7 +500,8 @@ func WsBookTickerServe(symbol string, handler WsBookTickerHandler, errHandler Er
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsBookTickerEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -501,7 +517,8 @@ func WsAllBookTickerServe(handler WsBookTickerHandler, errHandler ErrHandler) (d
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsBookTickerEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -542,7 +559,8 @@ func WsLiquidationOrderServe(symbol string, handler WsLiquidationOrderHandler, e
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsLiquidationOrderEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -558,7 +576,8 @@ func WsAllLiquidationOrderServe(handler WsLiquidationOrderHandler, errHandler Er
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsLiquidationOrderEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -785,7 +804,8 @@ func WsBLVTInfoServe(name string, handler WsBLVTInfoHandler, errHandler ErrHandl
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsBLVTInfoEvent)
-		err := json.Unmarshal(message, &event)
+		// err := json.Unmarshal(message, &event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -828,7 +848,8 @@ func WsBLVTKlineServe(name string, interval string, handler WsBLVTKlineHandler, 
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsBLVTKlineEvent)
-		err := json.Unmarshal(message, event)
+		// err := json.Unmarshal(message, event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -863,7 +884,8 @@ func WsCompositiveIndexServe(symbol string, handler WsCompositeIndexHandler, err
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsCompositeIndexEvent)
-		err := json.Unmarshal(message, event)
+		// err := json.Unmarshal(message, event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return
@@ -963,7 +985,8 @@ func WsUserDataServe(listenKey string, handler WsUserDataHandler, errHandler Err
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsUserDataEvent)
-		err := json.Unmarshal(message, event)
+		// err := json.Unmarshal(message, event)
+		err := easyjson.Unmarshal(message, event)
 		if err != nil {
 			errHandler(err)
 			return

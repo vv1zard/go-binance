@@ -3,7 +3,6 @@
 package binance
 
 import (
-	thisjson "encoding/json"
 	easyjson "github.com/mailru/easyjson"
 	jlexer "github.com/mailru/easyjson/jlexer"
 	jwriter "github.com/mailru/easyjson/jwriter"
@@ -12,7 +11,6 @@ import (
 
 // suppress unused package warning
 var (
-	_ *thisjson.RawMessage
 	_ *jlexer.Lexer
 	_ *jwriter.Writer
 	_ easyjson.Marshaler
