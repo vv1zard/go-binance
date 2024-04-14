@@ -13,9 +13,9 @@ import (
 // Endpoints
 const (
 	baseWsMainURL          = "wss://stream.binance.com:9443/ws"
-	baseWsTestnetURL       = "wss://testnet.binance.vision/ws"
+	baseWsTestnetURL       = "wss://stream-mm.binance.com:9443/ws"
 	baseCombinedMainURL    = "wss://stream.binance.com:9443/stream?streams="
-	baseCombinedTestnetURL = "wss://testnet.binance.vision/stream?streams="
+	baseCombinedTestnetURL = "wss://stream-mm.binance.com:9443/stream?streams="
 )
 
 var (
