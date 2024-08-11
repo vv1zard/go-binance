@@ -13,16 +13,16 @@ import (
 // Endpoints
 const (
 	baseWsMainURL          = "wss://stream.binance.com:9443/ws"
-	baseWsTestnetURL       = "wss://stream-mm.binance.com:9443/ws"
+	baseWsTestnetURL       = "wss://testnet.binance.vision/ws"
 	baseCombinedMainURL    = "wss://stream.binance.com:9443/stream?streams="
-	baseCombinedTestnetURL = "wss://stream-mm.binance.com:9443/stream?streams="
+	baseCombinedTestnetURL = "wss://testnet.binance.vision/stream?streams="
 )
 
 var (
 	// WebsocketTimeout is an interval for sending ping/pong messages if WebsocketKeepalive is enabled
 	WebsocketTimeout = time.Second * 60
 	// WebsocketKeepalive enables sending ping/pong messages to check the connection stability
-	WebsocketKeepalive = false
+	WebsocketKeepalive = true
 )
 
 // getWsEndpoint return the base endpoint of the WS according the UseTestnet flag

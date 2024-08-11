@@ -100,7 +100,7 @@ type RateLimitInterval string
 // Endpoints
 const (
 	baseAPIMainURL    = "https://api.binance.com"
-	baseAPITestnetURL = "https://api-mm.binance.com"
+	baseAPITestnetURL = "https://api.binance.com"
 )
 
 // UseTestnet switch all the API endpoints from production to the testnet
