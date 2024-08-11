@@ -991,6 +991,7 @@ func WsUserDataServe(listenKey string, handler WsUserDataHandler, errHandler Err
 		event := new(WsUserDataEvent)
 		err := easyjson.Unmarshal(message, event)
 		if err != nil {
+			fmt.Println(string(message))
 			errHandler(err)
 			return
 		}
