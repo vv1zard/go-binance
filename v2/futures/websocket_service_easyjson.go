@@ -500,8 +500,16 @@ func easyjsonEd041cfDecodeGithubComVv1zardGoBinanceV2Futures3(in *jlexer.Lexer, 
 			out.ActivationPrice = string(in.String())
 		case "cr":
 			out.CallbackRate = string(in.String())
+		case "pP":
+			out.PriceProtect = bool(in.Bool())
 		case "rp":
 			out.RealizedPnL = string(in.String())
+		case "V":
+			out.STP = string(in.String())
+		case "pm":
+			out.PriceMode = string(in.String())
+		case "gtd":
+			out.GTD = int64(in.Int64())
 		default:
 			in.SkipRecursive()
 		}
@@ -662,9 +670,29 @@ func easyjsonEd041cfEncodeGithubComVv1zardGoBinanceV2Futures3(out *jwriter.Write
 		out.String(string(in.CallbackRate))
 	}
 	{
+		const prefix string = ",\"pP\":"
+		out.RawString(prefix)
+		out.Bool(bool(in.PriceProtect))
+	}
+	{
 		const prefix string = ",\"rp\":"
 		out.RawString(prefix)
 		out.String(string(in.RealizedPnL))
+	}
+	{
+		const prefix string = ",\"V\":"
+		out.RawString(prefix)
+		out.String(string(in.STP))
+	}
+	{
+		const prefix string = ",\"pm\":"
+		out.RawString(prefix)
+		out.String(string(in.PriceMode))
+	}
+	{
+		const prefix string = ",\"gtd\":"
+		out.RawString(prefix)
+		out.Int64(int64(in.GTD))
 	}
 	out.RawByte('}')
 }
