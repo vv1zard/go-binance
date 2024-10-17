@@ -154,12 +154,6 @@ func (v WsUserDataEvent) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonEd041cfEncodeGithubComVv1zardGoBinanceV2Futures(w, v)
 }
 
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *WsUserDataEvent) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonEd041cfDecodeGithubComVv1zardGoBinanceV2Futures(&r, v)
-	return r.Error()
-}
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *WsUserDataEvent) UnmarshalEasyJSON(l *jlexer.Lexer) {
