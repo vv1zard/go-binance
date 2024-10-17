@@ -991,7 +991,6 @@ func (e *WsUserDataEvent) UnmarshalJSON(data []byte) error {
 	default:
 		if v, ok := eventMaps[e.Event]; ok {
 			if err := json.Unmarshal(data, v); err != nil {
-				1
 				return err
 			}
 		} else {
