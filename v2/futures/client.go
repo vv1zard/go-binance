@@ -199,6 +199,13 @@ func getApiEndpoint() string {
 	return baseApiMainUrl
 }
 
+func getApiEndpointOrder() string {
+	if UseTestnetOrder {
+		return baseApiTestnetUrl
+	}
+	return baseApiMainUrl
+}
+
 // NewClient initialize an API client instance with API key and secret key.
 // You should always call this function before using this SDK.
 // Services will be created by the form client.NewXXXService().
@@ -207,6 +214,17 @@ func NewClient(apiKey, secretKey string) *Client {
 		APIKey:     apiKey,
 		SecretKey:  secretKey,
 		BaseURL:    getApiEndpoint(),
+		UserAgent:  "Binance/golang",
+		HTTPClient: http.DefaultClient,
+		Logger:     log.New(os.Stderr, "Binance-golang ", log.LstdFlags),
+	}
+}
+
+func NewClientOrder(apiKey, secretKey string) *Client {
+	return &Client{
+		APIKey:     apiKey,
+		SecretKey:  secretKey,
+		BaseURL:    getApiEndpointOrder(),
 		UserAgent:  "Binance/golang",
 		HTTPClient: http.DefaultClient,
 		Logger:     log.New(os.Stderr, "Binance-golang ", log.LstdFlags),

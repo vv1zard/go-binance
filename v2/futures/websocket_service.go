@@ -25,12 +25,20 @@ var (
 	// WebsocketKeepalive enables sending ping/pong messages to check the connection stability
 	WebsocketKeepalive = true
 	// UseTestnet switch all the WS streams from production to the testnet
-	UseTestnet = false
+	UseTestnet      = false
+	UseTestnetOrder = false
 )
 
 // getWsEndpoint return the base endpoint of the WS according the UseTestnet flag
 func getWsEndpoint() string {
 	if UseTestnet {
+		return baseWsTestnetUrl
+	}
+	return baseWsMainUrl
+}
+
+func getWsEndpointOrder() string {
+	if UseTestnetOrder {
 		return baseWsTestnetUrl
 	}
 	return baseWsMainUrl
@@ -1078,7 +1086,7 @@ type WsUserDataHandler func(event *WsUserDataEvent)
 
 // WsUserDataServe serve user data handler with listen key
 func WsUserDataServe(listenKey string, handler WsUserDataHandler, errHandler ErrHandler) (doneC, stopC chan struct{}, err error) {
-	endpoint := fmt.Sprintf("%s/%s", getWsEndpoint(), listenKey)
+	endpoint := fmt.Sprintf("%s/%s", getWsEndpointOrder(), listenKey)
 	cfg := newWsConfig(endpoint)
 	wsHandler := func(message []byte) {
 		event := new(WsUserDataEvent)
