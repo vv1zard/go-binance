@@ -49,7 +49,7 @@ func (s *GetFundAccountService) Do(ctx context.Context, opts ...RequestOption) (
 
 // Account define account info
 type FundAccount struct {
-	Balances []FundBalance `json:"balances"`
+	Balances []FundBalance
 }
 
 // Balance define user balance of your account
