@@ -29,7 +29,7 @@ func (c *Client) NewGetFundAccountService() *GetFundAccountService {
 // ]
 
 // Do send request
-func (s *GetFundAccountService) Do(ctx context.Context, opts ...RequestOption) (res *Account, err error) {
+func (s *GetFundAccountService) Do(ctx context.Context, opts ...RequestOption) (res []*FundBalance, err error) {
 	r := &request{
 		method:   http.MethodPost,
 		endpoint: "/sapi/v1/asset/get-funding-asset",
@@ -39,17 +39,15 @@ func (s *GetFundAccountService) Do(ctx context.Context, opts ...RequestOption) (
 	if err != nil {
 		return nil, err
 	}
-	res = new(Account)
-	err = json.Unmarshal(data, res)
+
+	res = make([]*FundBalance, 0)
+	err = json.Unmarshal(data, &res)
+
 	if err != nil {
 		return nil, err
 	}
-	return res, nil
-}
 
-// Account define account info
-type FundAccount struct {
-	Balances []FundBalance
+	return res, nil
 }
 
 // Balance define user balance of your account
