@@ -31,7 +31,7 @@ func (c *Client) NewGetFundAccountService() *GetFundAccountService {
 // Do send request
 func (s *GetFundAccountService) Do(ctx context.Context, opts ...RequestOption) (res *Account, err error) {
 	r := &request{
-		method:   http.MethodGet,
+		method:   http.MethodPost,
 		endpoint: "/sapi/v1/asset/get-funding-asset",
 		secType:  secTypeSigned,
 	}
