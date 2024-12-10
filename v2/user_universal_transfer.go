@@ -25,10 +25,10 @@ type CreateUserUniversalTransferService struct {
 	toSymbol   *string
 }
 
-// MAIN_UMFUTURE Spot account transfer to USDⓈ-M Futures account
+//*** MAIN_UMFUTURE Spot account transfer to USDⓈ-M Futures account
 // MAIN_CMFUTURE Spot account transfer to COIN-M Futures account
 // MAIN_MARGIN Spot account transfer to Margin（cross）account
-// UMFUTURE_MAIN USDⓈ-M Futures account transfer to Spot account
+//*** UMFUTURE_MAIN USDⓈ-M Futures account transfer to Spot account
 // UMFUTURE_MARGIN USDⓈ-M Futures account transfer to Margin（cross）account
 // CMFUTURE_MAIN COIN-M Futures account transfer to Spot account
 // CMFUTURE_MARGIN COIN-M Futures account transfer to Margin(cross) account
@@ -39,7 +39,7 @@ type CreateUserUniversalTransferService struct {
 // MARGIN_ISOLATEDMARGIN Margin(cross) account transfer to Isolated margin account
 // ISOLATEDMARGIN_ISOLATEDMARGIN Isolated margin account transfer to Isolated margin account
 // MAIN_FUNDING Spot account transfer to Funding account
-// FUNDING_MAIN Funding account transfer to Spot account
+//*** FUNDING_MAIN Funding account transfer to Spot account
 // FUNDING_UMFUTURE Funding account transfer to UMFUTURE account
 // UMFUTURE_FUNDING UMFUTURE account transfer to Funding account
 // MARGIN_FUNDING MARGIN account transfer to Funding account

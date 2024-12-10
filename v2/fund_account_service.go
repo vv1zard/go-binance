@@ -10,6 +10,11 @@ type GetFundAccountService struct {
 	c *Client
 }
 
+// NewGetAccountService create a new GetAccountService
+func (c *Client) NewGetFundAccountService() *GetFundAccountService {
+	return &GetFundAccountService{c: c}
+}
+
 // /sapi/v1/asset/get-funding-asset
 
 // [
