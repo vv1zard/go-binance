@@ -390,6 +390,26 @@ func (c *Client) NewGetBalanceService() *GetBalanceService {
 	return &GetBalanceService{c: c}
 }
 
+func (c *Client) NewChangeUMLeverageService() *ChangeUMLeverageService {
+	return &ChangeUMLeverageService{c: c}
+}
+func (c *Client) NewChangeUMPositionModeService() *ChangeUMPositionModeService {
+	return &ChangeUMPositionModeService{c: c}
+}
+func (c *Client) NewGetUMAccountService() *GetUMAccountService {
+	return &GetUMAccountService{c: c}
+}
+
+func (c *Client) NewChangeCMLeverageService() *ChangeCMLeverageService {
+	return &ChangeCMLeverageService{c: c}
+}
+func (c *Client) NewChangeCMPositionModeService() *ChangeCMPositionModeService {
+	return &ChangeCMPositionModeService{c: c}
+}
+func (c *Client) NewGetCMAccountService() *GetCMAccountService {
+	return &GetCMAccountService{c: c}
+}
+
 // NewStartUserStreamService init starting user stream service
 func (c *Client) NewStartUserStreamService() *StartUserStreamService {
 	return &StartUserStreamService{c: c}
