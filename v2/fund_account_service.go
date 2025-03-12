@@ -44,7 +44,7 @@ func (s *GetFundAccountService) Do(ctx context.Context, opts ...RequestOption) (
 	err = json.Unmarshal(data, &res)
 
 	if err != nil {
-		return nil, err
+		return []*FundBalance{}, err
 	}
 
 	return res, nil
