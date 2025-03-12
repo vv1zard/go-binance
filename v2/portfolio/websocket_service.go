@@ -154,6 +154,52 @@ func (e *WsUserDataEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// {
+// 	"e": "ACCOUNT_UPDATE",                // Event Type
+// 	"fs": "UM",                           // Event business unit. 'UM' for USDS-M futures and 'CM' for COIN-M futures
+// 	"E": 1564745798939,                   // Event Time
+// 	"T": 1564745798938 ,                  // Transaction
+// 	"i":"",                           // Account Alias, ignore for UM
+// 	"a":                                  // Update Data
+// 	  {
+// 		"m":"ORDER",                      // Event reason type
+// 		"B":[                             // Balances
+// 		  {
+// 			"a":"USDT",                   // Asset
+// 			"wb":"122624.12345678",       // Wallet Balance
+// 			"cw":"100.12345678",          // Cross Wallet Balance
+// 			"bc":"50.12345678"            // Balance Change except PnL and Commission
+// 		  },
+// 		  {
+// 			"a":"BUSD",
+// 			"wb":"1.00000000",
+// 			"cw":"0.00000000",
+// 			"bc":"-49.12345678"
+// 		  }
+// 		],
+// 		"P":[
+// 		  {
+// 			"s":"BTCUSDT",            // Symbol
+// 			"pa":"0",                 // Position Amount
+// 			"ep":"0.00000",            // Entry Price
+// 			"cr":"200",               // (Pre-fee) Accumulated Realized
+// 			"up":"0",                     // Unrealized PnL
+// 			"ps":"BOTH",                   // Position Side
+// 			"bep":"0.00000"            // breakeven price}，
+// 		  },
+// 		  {
+// 			  "s":"BTCUSDT",
+// 			  "pa":"20",
+// 			  "ep":"6563.66500",
+// 			  "cr":"0",
+// 			  "up":"2850.21200",
+// 			  "ps":"LONG",
+// 			  "bep":"0.00000"            // breakeven price
+// 		   }
+// 		]
+// 	  }
+//   }
+
 // WsAccountUpdate define account update
 type WsAccountUpdate struct {
 	Reason    UserDataEventReasonType `json:"m"`
@@ -172,12 +218,12 @@ type WsBalance struct {
 // WsPosition define position
 type WsPosition struct {
 	Symbol              string           `json:"s"`
-	Side                PositionSideType `json:"ps"`
 	Amount              string           `json:"pa"`
 	EntryPrice          string           `json:"ep"`
-	UnrealizedPnL       string           `json:"up"`
 	AccumulatedRealized string           `json:"cr"`
-	BreakevenPrice      string           `json:"bep"`
+	UnrealizedPnL       string           `json:"up"`
+	Side                PositionSideType `json:"ps"`
+	// BreakevenPrice      string           `json:"bep"`
 }
 
 // {
