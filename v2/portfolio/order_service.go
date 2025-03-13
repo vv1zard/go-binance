@@ -547,7 +547,7 @@ func (s *CancelCMOrderService) OrigClientOrderID(origClientOrderID string) *Canc
 func (s *CancelCMOrderService) Do(ctx context.Context, opts ...RequestOption) (res *CancelCMOrderResponse, err error) {
 	r := &request{
 		method:   http.MethodDelete,
-		endpoint: "/papi/v1/um/order",
+		endpoint: "/papi/v1/cm/order",
 		secType:  secTypeSigned,
 	}
 	r.setFormParam("symbol", s.symbol)
