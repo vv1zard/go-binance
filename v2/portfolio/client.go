@@ -116,7 +116,7 @@ const (
 	UserDataEventTypeAccountUpdate    UserDataEventType = "ACCOUNT_UPDATE"
 	UserDataEventTypeOrderTradeUpdate UserDataEventType = "ORDER_TRADE_UPDATE"
 	// UserDataEventTypeAccountConfigUpdate UserDataEventType = "ACCOUNT_CONFIG_UPDATE"
-	UserDataEventTypeOutboundAccountPosition UserDataEventType = "outboundAccountPosition "
+	UserDataEventTypeOutboundAccountPosition UserDataEventType = "outboundAccountPosition"
 	UserDataEventTypeBalanceUpdate           UserDataEventType = "balanceUpdate"
 
 	UserDataEventReasonTypeDeposit             UserDataEventReasonType = "DEPOSIT"
