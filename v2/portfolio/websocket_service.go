@@ -70,8 +70,7 @@ type WsUserDataEvent struct {
 	// // ACCOUNT_CONFIG_UPDATE
 	// WsUserDataAccountConfigUpdate
 
-	// // TRADE_LITE
-	// WsUserDataTradeLite
+	WsOutboundAccountPosition
 }
 
 // type WsUserDataAccountConfigUpdate struct {
@@ -138,8 +137,12 @@ func (e *WsUserDataEvent) UnmarshalJSON(data []byte) error {
 	}
 
 	switch e.Event {
-	// case UserDataEventTypeTradeLite:
-	// 	return e.WsUserDataTradeLite.fromSimpleJson(j)
+	case UserDataEventTypeOutboundAccountPosition:
+		if err := json.Unmarshal(data, &e.WsOutboundAccountPosition); err != nil {
+			return err
+		}
+	case UserDataEventTypeBalanceUpdate:
+		// noting
 	case UserDataEventTypeListenKeyExpired:
 		// noting
 	default:
@@ -335,3 +338,61 @@ func WsUserDataServe(listenKey string, handler WsUserDataHandler, errHandler Err
 	}
 	return wsServe(cfg, wsHandler, errHandler)
 }
+
+// balanceUpdate
+// {
+// 	"e": "balanceUpdate",         //时间类型
+// 	"E": 1573200697110,           //事件时间
+// 	"a": "BTC",                   //资产
+// 	"d": "100.00000000",          //变动数量
+// 	"U": 1027053479517            //事件更新ID
+// 	"T": 1573200697068            //Time
+//   }
+
+// outboundAccountPosition
+// {
+// 	"e": "outboundAccountPosition", // 事件类型
+// 	"E": 1564034571105,             // 事件时间
+// 	"u": 1564034571073,             // 账户末次更新时间戳
+// 	"U": 1027053479517,             // 时间更新ID
+// 	"B": [                          // 余额
+// 	  {
+// 		"a": "ETH",                 // 资产名称
+// 		"f": "10000.000000",        // 可用余额
+// 		"l": "0.000000"             // 冻结余额
+// 	  }
+// 	]
+//   }
+
+type WsOutboundAccountPosition struct {
+	Event          string            `json:"e"`
+	Time           int64             `json:"E"`
+	LastUpdateTime int64             `json:"u"`
+	UpdateTime     int64             `json:"U"`
+	Balances       []WsBalanceSimple `json:"B"`
+}
+
+type WsBalanceSimple struct {
+	Asset  string `json:"a"`
+	Free   string `json:"f"`
+	Locked string `json:"l"`
+}
+
+// func (w *WsOutboundAccountPosition) fromJson(j *simplejson.Json) (err error) {
+// 	w.Balances = j.Get("B").MustArray()
+// 	return nil
+// }
+
+// func (w *WsUserDataTradeLite) fromSimpleJson(j *simplejson.Json) (err error) {
+// 	w.Symbol = j.Get("s").MustString()
+// 	w.OriginalQty = j.Get("q").MustString()
+// 	w.OriginalPrice = j.Get("p").MustString()
+// 	w.IsMaker = j.Get("m").MustBool()
+// 	w.ClientOrderID = j.Get("c").MustString()
+// 	w.Side = SideType(j.Get("S").MustString())
+// 	w.LastFilledPrice = j.Get("L").MustString()
+// 	w.LastFilledQty = j.Get("l").MustString()
+// 	w.TradeID = j.Get("t").MustInt64()
+// 	w.OrderID = j.Get("i").MustInt64()
+// 	return nil
+// }
