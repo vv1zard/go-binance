@@ -70,12 +70,19 @@ var wsServe = func(cfg *WsConfig, handler WsHandler, errHandler ErrHandler) (don
 }
 
 func keepAlive(c *websocket.Conn, timeout time.Duration) {
+
 	ticker := time.NewTicker(timeout)
 
 	lastResponse := time.Now()
 	c.SetPongHandler(func(msg string) error {
 		lastResponse = time.Now()
 		return nil
+	})
+
+	// 处理服务器发送的 ping，必须回复相同 payload 的 pong
+	c.SetPingHandler(func(payload string) error {
+		lastResponse = time.Now()
+		return c.WriteControl(websocket.PongMessage, []byte(payload), time.Now().Add(10*time.Second))
 	})
 
 	go func() {
